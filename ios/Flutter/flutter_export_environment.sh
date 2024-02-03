@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/mohammedbakr/fvm/versions/3.13.6"
-export "FLUTTER_APPLICATION_PATH=/Users/mohammedbakr/Desktop/SOLWAY/Frreelance/simple_note_taking_app_2"
+export "FLUTTER_APPLICATION_PATH=/Users/mohammedbakr/Desktop/SOLWAY/Frreelance/simple_note_taking_app"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
