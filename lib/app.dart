@@ -3,7 +3,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 import 'package:simple_note_taking_app/core/routes.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
 import 'package:simple_note_taking_app/features/noting/pages/splash_page.dart';
-import 'package:simple_note_taking_app/features/noting/widgets/loading_widget.dart';
+import 'package:simple_note_taking_app/widgets/loading_widget.dart';
 
 final GlobalKey globalKey = GlobalKey();
 

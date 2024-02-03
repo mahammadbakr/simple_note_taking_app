@@ -21,15 +21,7 @@ NotesBloc get notesBloc => getIt<NotesBloc>();
 @LazySingleton()
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   // notes
-  List<Map> _notes = [
-    NoteModel(
-      id: 1,
-      title: 'title',
-      description: 'description',
-      createdAt: DateTime.now().toIso8601String(),
-      updatedAt: DateTime.now().toIso8601String(),
-    ).toJson(),
-  ];
+  List<Map> _notes = [];
   List<Map> get notes => _notes;
 
   // note form
@@ -42,16 +34,22 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       try {
         final String notesString = await localStorageGetString('notes');
         final decoded = jsonDecode(notesString);
-        if (decoded != null) {
-          _notes =
-              decoded.map<NoteModel>((e) => NoteModel.fromJson(e)).toList();
 
+        if (decoded != null && decoded != '' && decoded.isNotEmpty) {
+          _notes = decoded.map<Map>((e) {
+            return NoteModel(
+                    id: e['id'],
+                    title: e['title'],
+                    description: e['description'],
+                    createdAt: e['createdAt'],
+                    updatedAt: e['updatedAt'])
+                .toJson();
+          }).toList();
+          _notes.sort((a, b) => a['id'] - b['id']);
           emit(GetNotesSuccessState());
-        } else {
-          showToastFlutter('Get Note Error !', color: kcRed);
-          emit(GetNotesErrorState());
         }
       } catch (e) {
+        log('error===>${e.toString()}');
         showToastFlutter('unknown_error', color: kcRed);
         emit(GetNotesErrorState());
       }
@@ -61,11 +59,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       emit(AddNoteLoadingState());
       try {
         _notes.add(event.note);
+        _notes.sort((a, b) => a['id'] - b['id']);
         final decoded = jsonEncode(_notes);
         await localStorageSetString('notes', decoded);
         emit(AddNoteSuccessState());
       } catch (e) {
-        log('errror===>${e.toString()}');
+        log('error===>${e.toString()}');
         showToastFlutter('unknown_error', color: kcRed);
         emit(AddNoteErrorState());
       }
@@ -76,10 +75,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       try {
         _notes.removeWhere((element) => element['id'] == event.note['id']);
         _notes.add(event.note);
+        _notes.sort((a, b) => a['id'] - b['id']);
         final decoded = jsonEncode(_notes);
         await localStorageSetString('notes', decoded);
         emit(EditNoteSuccessState());
       } catch (e) {
+        log('error===>${e.toString()}');
         showToastFlutter('unknown_error', color: kcRed);
         emit(EditNoteErrorState());
       }
@@ -89,10 +90,12 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       emit(DeleteNoteLoadingState());
       try {
         _notes.removeWhere((element) => element['id'] == event.note['id']);
+        _notes.sort((a, b) => a['id'] - b['id']);
         final decoded = jsonEncode(_notes);
         await localStorageSetString('notes', decoded);
         emit(DeleteNoteSuccessState());
       } catch (e) {
+        log('error===>${e.toString()}');
         showToastFlutter('unknown_error', color: kcRed);
         emit(DeleteNoteErrorState());
       }

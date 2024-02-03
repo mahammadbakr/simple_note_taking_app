@@ -16,12 +16,14 @@ class NoteCardWidget extends StatelessWidget {
         Navigator.pushNamed(context, ViewNotesPage.routeName);
       },
       child: ListTile(
+        titleAlignment: ListTileTitleAlignment.top,
         leading: CircleAvatar(
-          backgroundColor: kcBlack.withOpacity(0.4),
+          backgroundColor: kcBlack,
           child: TextWidget(
             note['id'].toString(),
             fontSize: 16,
             fontWeight: FontWeight.w600,
+            color: kcWhite,
           ),
         ),
         title: TextWidget(
