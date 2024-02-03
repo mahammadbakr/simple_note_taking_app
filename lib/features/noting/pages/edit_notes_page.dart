@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
+import 'package:simple_note_taking_app/core/toast.dart';
 import 'package:simple_note_taking_app/features/noting/bloc/note_bloc.dart';
 import 'package:simple_note_taking_app/features/noting/widgets/note_appbar_widget.dart';
 import 'package:simple_note_taking_app/models/note_model.dart';
@@ -28,7 +29,7 @@ class EditNotesPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: const NoteAppbarWidget(
-        title: 'Add',
+        title: 'Edit',
       ),
       body: SafeArea(
         child: Form(
@@ -63,12 +64,15 @@ class EditNotesPage extends StatelessWidget {
                         NoteModel(
                           id: note?['id'],
                           title: noteForm['title'] ?? note?['title'],
-                          description: noteForm['description'] ?? note?['description'],
+                          description:
+                              noteForm['description'] ?? note?['description'],
                           updatedAt: DateTime.now().toIso8601String(),
                         ).toJson(),
                       ));
 
                       Navigator.pop(context);
+                      showToastFlutter('Note edited successfuly !',
+                          color: kcRed);
                     }
                   },
                   style: TextButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
+import 'package:simple_note_taking_app/core/toast.dart';
 import 'package:simple_note_taking_app/features/noting/bloc/note_bloc.dart';
 import 'package:simple_note_taking_app/features/noting/widgets/note_appbar_widget.dart';
 import 'package:simple_note_taking_app/models/note_model.dart';
@@ -64,6 +65,7 @@ class AddNotesPage extends StatelessWidget {
                       ));
 
                       Navigator.pop(context);
+                      showToastFlutter('New Note added successfuly !', color: kcRed);
                     }
                   },
                   style: TextButton.styleFrom(

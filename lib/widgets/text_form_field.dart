@@ -88,7 +88,7 @@ class AppTextFormField extends StatelessWidget {
               autofillHints: autofillHints,
               maxLines: obscureText ? 1 : maxLines,
               keyboardType: keyboardType,
-              enabled: true,
+              enabled: enabled,
               readOnly: enabled != null && enabled!,
               onChanged: onChanged,
               onSaved: onSaved,

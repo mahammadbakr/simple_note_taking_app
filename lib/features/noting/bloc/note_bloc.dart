@@ -50,7 +50,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         }
       } catch (e) {
         log('error===>${e.toString()}');
-        showToastFlutter('unknown_error', color: kcRed);
         emit(GetNotesErrorState());
       }
     });

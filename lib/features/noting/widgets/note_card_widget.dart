@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:simple_note_taking_app/core/gen/assets.gen.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
+import 'package:simple_note_taking_app/core/toast.dart';
 import 'package:simple_note_taking_app/features/noting/bloc/note_bloc.dart';
 import 'package:simple_note_taking_app/widgets/text_widget.dart';
 import 'package:simple_note_taking_app/pages.dart';
@@ -13,7 +14,10 @@ class NoteCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, ViewNotesPage.routeName);
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ViewNotesPage(
+                  note: note,
+                )));
       },
       child: ListTile(
         titleAlignment: ListTileTitleAlignment.top,
@@ -53,6 +57,7 @@ class NoteCardWidget extends StatelessWidget {
               onTap: () {
                 // show dialog to delete note
                 notesBloc.add(DeleteNoteEvent(note));
+                showToastFlutter('Note deleted successfuly !', color: kcRed);
               },
               child: SvgPicture.asset(
                 Assets.icons.delete,
