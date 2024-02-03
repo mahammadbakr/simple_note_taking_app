@@ -39,11 +39,15 @@ class NoteCardWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, EditNotesPage.routeName);
+              },
               child: SvgPicture.asset(Assets.icons.edit),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                // show dialog to delete note
+              },
               child: SvgPicture.asset(
                 Assets.icons.delete,
                 color: kcRed,
