@@ -3,6 +3,8 @@ import 'package:simple_note_taking_app/core/gen/assets.gen.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
 import 'package:simple_note_taking_app/features/noting/widgets/floating_widget.dart';
 import 'package:simple_note_taking_app/features/noting/widgets/note_appbar_widget.dart';
+import 'package:simple_note_taking_app/features/noting/widgets/note_card_widget.dart';
+import 'package:simple_note_taking_app/models/note_model.dart';
 
 class NotesPage extends StatefulWidget {
   static const String routeName = '/notes';
@@ -22,7 +24,17 @@ class _NotesPageState extends State<NotesPage> {
         title: 'Notes',
       ),
       body: ListView(
-        children: [],
+        children: [
+          NoteCardWidget(
+            note: NoteModel(
+              id: 1,
+              title: 'title',
+              description: 'description',
+              createdAt: '',
+              updatedAt: '',
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: kcWhite,
