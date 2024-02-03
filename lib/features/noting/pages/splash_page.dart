@@ -12,12 +12,12 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-
   @override
-  void initState() {
-    Navigator.pushNamedAndRemoveUntil(
-            context, NotesPage.routeName, (route) => false);
-    super.initState();
+  Future<void> didChangeDependencies() async {
+     await Future.delayed(Duration(seconds: 1));
+    Navigator.pushReplacementNamed(
+        context, NotesPage.routeName);
+    super.didChangeDependencies();
   }
 
   @override

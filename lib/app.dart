@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:simple_note_taking_app/core/language/language_bloc.dart';
 import 'package:simple_note_taking_app/core/routes.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
 import 'package:simple_note_taking_app/features/noting/pages/splash_page.dart';

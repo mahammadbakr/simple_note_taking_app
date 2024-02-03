@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:simple_note_taking_app/core/gen/assets.gen.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
+import 'package:simple_note_taking_app/features/noting/widgets/floating_widget.dart';
 import 'package:simple_note_taking_app/features/noting/widgets/note_appbar_widget.dart';
-import 'package:simple_note_taking_app/features/noting/widgets/text_widget.dart';
 
 class NotesPage extends StatefulWidget {
   static const String routeName = '/notes';
@@ -18,7 +17,10 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: const NoteAppbarWidget(),
+      appBar: NoteAppbarWidget(
+        icon: Assets.icons.note,
+        title: 'Notes',
+      ),
       body: ListView(
         children: [],
       ),
@@ -27,34 +29,17 @@ class _NotesPageState extends State<NotesPage> {
         onPressed: () {},
         isExtended: true,
         label: AnimatedSwitcher(
-          duration: const Duration(seconds: 1),
-          transitionBuilder: (Widget child, Animation<double> animation) =>
-              FadeTransition(
-            opacity: animation,
-            child: SizeTransition(
-              sizeFactor: animation,
-              axis: Axis.horizontal,
-              child: child,
-            ),
-          ),
-          child: Row(
-            children: [
-              const TextWidget(
-                'Add',
-                enableLang: false,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              SvgPicture.asset(
-                Assets.icons.add,
-                width: 30,
-              ),
-            ],
-          ),
-        ),
+            duration: const Duration(seconds: 1),
+            transitionBuilder: (Widget child, Animation<double> animation) =>
+                FadeTransition(
+                  opacity: animation,
+                  child: SizeTransition(
+                    sizeFactor: animation,
+                    axis: Axis.horizontal,
+                    child: child,
+                  ),
+                ),
+            child: const FloatingButton()),
       ),
     );
   }

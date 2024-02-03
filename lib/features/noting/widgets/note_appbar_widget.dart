@@ -6,13 +6,15 @@ import '../../../../../core/theme/theme.dart';
 
 // custom appbar for home page
 class NoteAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const NoteAppbarWidget({Key? key})
+  const NoteAppbarWidget({Key? key, this.title, this.icon})
       : preferredSize = const Size.fromHeight(kToolbarHeight),
         super(key: key);
 
   @override
   final Size preferredSize; // default is 56.0
 
+  final String? title;
+  final String? icon;
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -23,16 +25,18 @@ class NoteAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            Assets.icons.note,
-            height: 25,
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          const TextWidget(
-            'Simple notes',
-            enableLang: false,
+          icon == null
+              ? const SizedBox.shrink()
+              : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 3),
+                child: SvgPicture.asset(
+                   icon ?? Assets.icons.note,
+                    height: 25,
+                  ),
+              ),
+         
+          TextWidget(
+            title ?? 'Notes',
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
