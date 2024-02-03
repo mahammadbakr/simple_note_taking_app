@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:simple_note_taking_app/core/gen/assets.gen.dart';
 import 'package:simple_note_taking_app/core/theme/theme.dart';
-import 'package:simple_note_taking_app/features/noting/widgets/text_widget.dart';
-import 'package:simple_note_taking_app/models/note_model.dart';
+import 'package:simple_note_taking_app/features/noting/bloc/note_bloc.dart';
+import 'package:simple_note_taking_app/widgets/text_widget.dart';
 import 'package:simple_note_taking_app/pages.dart';
 
 class NoteCardWidget extends StatelessWidget {
   const NoteCardWidget({super.key, required this.note});
-  final NoteModel note;
+  final Map note;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -19,18 +19,18 @@ class NoteCardWidget extends StatelessWidget {
         leading: CircleAvatar(
           backgroundColor: kcBlack.withOpacity(0.4),
           child: TextWidget(
-            note.id.toString(),
+            note['id'].toString(),
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
         title: TextWidget(
-          note.title,
+          note['title'],
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
         subtitle: TextWidget(
-          note.description,
+          note['description'],
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
@@ -40,13 +40,17 @@ class NoteCardWidget extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Navigator.pushNamed(context, EditNotesPage.routeName);
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => EditNotesPage(
+                          note: note,
+                        )));
               },
               child: SvgPicture.asset(Assets.icons.edit),
             ),
             InkWell(
               onTap: () {
                 // show dialog to delete note
+                notesBloc.add(DeleteNoteEvent(note));
               },
               child: SvgPicture.asset(
                 Assets.icons.delete,

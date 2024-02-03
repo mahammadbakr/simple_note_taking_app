@@ -12,25 +12,25 @@ class GetNotesEvent extends NotesEvent {
 }
 
 class AddNoteEvent extends NotesEvent {
-  final NoteModel noteModel;
-  const AddNoteEvent(this.noteModel);
+  final Map note;
+  const AddNoteEvent(this.note);
 
   @override
-  List<Object> get props => [noteModel];
+  List<Object> get props => [note];
 }
 
 class EditNoteEvent extends NotesEvent {
-  final NoteModel noteModel;
-  const EditNoteEvent(this.noteModel);
+  final Map note;
+  const EditNoteEvent(this.note);
 
   @override
-  List<Object> get props => [noteModel];
+  List<Object> get props => [note];
 }
 
 class DeleteNoteEvent extends NotesEvent {
-  final NoteModel noteModel;
-  const DeleteNoteEvent(this.noteModel);
+  final Map note;
+  const DeleteNoteEvent(this.note);
 
   @override
-  List<Object> get props => [noteModel];
+  List<Object> get props => [note];
 }

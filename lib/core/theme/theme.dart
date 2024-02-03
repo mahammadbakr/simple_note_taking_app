@@ -9,7 +9,7 @@ const Color kcWhite = Color(0xffffffff);
 const Color kcAppbar = Color(0xff191919);
 const Color kcBackground = Color(0xff0d0d0d);
 const Color kcGrey = Color(0xffd8d8d8);
-const Color kcLightBlack = Color(0xff454545);
+const Color kcLightBlack = Color.fromARGB(255, 61, 61, 61);
 
 // share
 const Color kcBlack = Color(0xff000000);

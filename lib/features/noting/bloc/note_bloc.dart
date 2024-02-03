@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 
@@ -20,8 +21,20 @@ NotesBloc get notesBloc => getIt<NotesBloc>();
 @LazySingleton()
 class NotesBloc extends Bloc<NotesEvent, NotesState> {
   // notes
-  List<NoteModel> _notes = [];
-  List<NoteModel> get notes => _notes;
+  List<Map> _notes = [
+    NoteModel(
+      id: 1,
+      title: 'title',
+      description: 'description',
+      createdAt: DateTime.now().toIso8601String(),
+      updatedAt: DateTime.now().toIso8601String(),
+    ).toJson(),
+  ];
+  List<Map> get notes => _notes;
+
+  // note form
+  Map _noteForm = {};
+  Map get noteForm => _noteForm;
 
   NotesBloc() : super(NotesInitial()) {
     on<GetNotesEvent>((event, emit) async {
@@ -47,23 +60,22 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<AddNoteEvent>((event, emit) async {
       emit(AddNoteLoadingState());
       try {
-        _notes.add(event.noteModel);
+        _notes.add(event.note);
         final decoded = jsonEncode(_notes);
-
         await localStorageSetString('notes', decoded);
         emit(AddNoteSuccessState());
       } catch (e) {
+        log('errror===>${e.toString()}');
         showToastFlutter('unknown_error', color: kcRed);
         emit(AddNoteErrorState());
       }
     });
 
-
     on<EditNoteEvent>((event, emit) async {
       emit(EditNoteLoadingState());
       try {
-        _notes.removeWhere((element) => element.id == event.noteModel.id);
-        _notes.add(event.noteModel);
+        _notes.removeWhere((element) => element['id'] == event.note['id']);
+        _notes.add(event.note);
         final decoded = jsonEncode(_notes);
         await localStorageSetString('notes', decoded);
         emit(EditNoteSuccessState());
@@ -73,12 +85,10 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       }
     });
 
-
-
-     on<DeleteNoteEvent>((event, emit) async {
+    on<DeleteNoteEvent>((event, emit) async {
       emit(DeleteNoteLoadingState());
       try {
-        _notes.removeWhere((element) => element.id == event.noteModel.id);
+        _notes.removeWhere((element) => element['id'] == event.note['id']);
         final decoded = jsonEncode(_notes);
         await localStorageSetString('notes', decoded);
         emit(DeleteNoteSuccessState());

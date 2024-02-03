@@ -14,7 +14,17 @@ class NoteModel {
     required this.updatedAt,
   });
 
-  factory NoteModel.fromJson(Map<String, dynamic> json) {
+  Map<dynamic, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'description': description,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+    };
+  }
+
+  factory NoteModel.fromJson(Map<dynamic, dynamic> json) {
     return NoteModel(
       id: json['id'] ?? 0,
       title: json['title'] ?? '',

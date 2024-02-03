@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:simple_note_taking_app/core/gen/assets.gen.dart';
-import 'package:simple_note_taking_app/features/noting/widgets/text_widget.dart';
+import 'package:simple_note_taking_app/widgets/text_widget.dart';
 import '../../../../../core/theme/theme.dart';
 
 // custom appbar for home page
